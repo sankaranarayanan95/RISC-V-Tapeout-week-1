@@ -62,7 +62,7 @@ By the end of this week, participants gain practical experience with **RTL-to-ga
 <div align="center">
 
 **👨‍💻 Participant:** Sankararayanan V  
-📧 sankararayananvelu2005@gmail.com  
+📧 sanka.naren2005@gmail.com  
 
 [![GitHub](https://img.shields.io/badge/GitHub-TheVoltageVikingRam-black?style=for-the-badge&logo=github)](https://github.com/TheVoltageVikingRam)  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Sankararayanan%20V-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/)  
