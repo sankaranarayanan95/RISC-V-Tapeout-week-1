@@ -216,9 +216,8 @@ Let’s synthesize the `good_counter` design using Yosys!
     ```
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/4b3a9939-92d0-4efc-ad69-e96faf19e6c3" alt="Yosys Gate-level Schematic" width="70%">
+  <img src="/images/counter_synthesis.png" alt="GTKWave Counter Output" width="70%">
 </div>
-
 ---
 
 ## 7. Summary
