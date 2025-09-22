@@ -80,13 +80,16 @@ sudo apt install gtkwave
 Compile the design and testbench:
 
 ```shell
-iverilog good_mux.v tb_good_mux.v
+cd ~/Desktop/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+iverilog good_counter.v tb_good_counter.v -o counter_out vvp counter_out
+    
+
 ```
 
 Run the simulation:
 
 ```shell
-./a.out
+./counter.out
 ```
 
 View the waveform:
@@ -106,22 +109,40 @@ gtkwave tb_good_mux.vcd
 **The code for the multiplexer (`good_mux.v`):**
 
 ```verilog
-module good_mux (input i0, input i1, input sel, output reg y);
-always @ (*)
+module good_counter (input clk , input reset , output reg [1:0] cnt);
+wire comp;
+
+assign comp = (cnt == 2'b10);
+
+always @(posedge clk , posedge reset)
 begin
-    if(sel)
-        y <= i1;
-    else 
-        y <= i0;
+	if(reset)
+		cnt <= 2'b00;
+	else if(comp)
+		cnt <= 2'b00;
+	else
+		cnt <= cnt+1;
 end
+
 endmodule
 ```
 
 ###  **How It Works**
 
-- **Inputs:** `i0`, `i1` (data), `sel` (select line)
-- **Output:** `y` (registered output)
-- **Logic:** If `sel` is 1, `y` gets `i1`; if `sel` is 0, `y` gets `i0`.
+# 4-bit Counter
+
+- **Inputs:**
+  - `clk` → Clock signal  
+  - `reset` → Active-high reset  
+
+- **Output:**
+  - `count[3:0]` → 4-bit counter value  
+
+- **Logic:**  
+  - On every rising edge of `clk`:  
+    - If `reset = 1` → `count` is reset to `0000`.  
+    - Else → `count` increments by `1` (`count = count + 1`).  
+
 
 ---
 
