@@ -1,62 +1,71 @@
+# ⚡ Day 2 – Timing Libraries, Synthesis Approaches & Flip-Flop Coding  
 
+<div align="center">
 
+![RTL](https://img.shields.io/badge/Verilog-RTL-blue?style=for-the-badge&logo=verilog)  
+![Synthesis](https://img.shields.io/badge/Yosys-Synthesis-green?style=for-the-badge&logo=opensourceinitiative)  
+![Simulation](https://img.shields.io/badge/Simulation-Icarus%20Verilog-orange?style=for-the-badge)  
+![Waveforms](https://img.shields.io/badge/GTKWave-Visualization-lightgrey?style=for-the-badge)  
 
-# Day 2: Timing Libraries, Synthesis Approaches, and Efficient Flip-Flop Coding
+</div>
 
-Welcome to Day 2 of the RTL Workshop. This day covers three crucial topics:
-- Understanding the `.lib` timing library (sky130_fd_sc_hd__tt_025C_1v80.lib) used in open-source PDKs.
-- Comparing hierarchical vs. flat synthesis methods.
-- Exploring efficient coding styles for flip-flops in RTL design.
-
----
-
-
-# Contents
-
-- [Timing Libraries](#timing-libraries)
-  - [SKY130 PDK Overview](#sky130-pdk-overview)
-  - [Decoding tt_025C_1v80 in the SKY130 PDK](#decoding-tt_025c_1v80-in-the-sky130-pdk)
-  - [Opening and Exploring the .lib File](#opening-and-exploring-the-lib-file)
-
-- [Hierarchical vs. Flattened Synthesis](#hierarchical-vs-flattened-synthesis)
-  - [Hierarchical Synthesis](#hierarchical-synthesis)
-  - [Flattened Synthesis](#flattened-synthesis)
-  - [Key Differences](#key-differences)
-
-- [Flip-Flop Coding Styles](#flip-flop-coding-styles)
-  - [Asynchronous Reset D Flip-Flop](#asynchronous-reset-d-flip-flop)
-  - [Asynchronous Set D Flip-Flop](#asynchronous-set-d-flip-flop)
-  - [Synchronous Reset D Flip-Flop](#synchronous-reset-d-flip-flop)
-
-- [Simulation and Synthesis Workflow](#simulation-and-synthesis-workflow)
-  - [Icarus Verilog Simulation](#icarus-verilog-simulation)
-  - [Synthesis with Yosys](#synthesis-with-yosys)
+Welcome to **Day 2** of the RTL Workshop 🌟.  
+Today’s focus: mastering **timing libraries**, understanding **hierarchical vs. flat synthesis**, and applying **efficient flip-flop coding styles** for robust digital design.  
 
 ---
 
-## Timing Libraries
+## 📚 Contents
 
-### SKY130 PDK Overview
+- [⏱️ Timing Libraries](#️-timing-libraries)  
+  - [SKY130 PDK Overview](#sky130-pdk-overview)  
+  - [Decoding tt_025C_1v80](#decoding-tt_025c_1v80)  
+  - [Opening the .lib File](#opening-the-lib-file)  
 
-The SKY130 PDK is an open-source Process Design Kit based on SkyWater Technology's 130nm CMOS technology. It provides essential models and libraries for integrated circuit (IC) design, including timing, power, and process variation information.
+- [🏗️ Hierarchical vs. Flattened Synthesis](#️-hierarchical-vs-flattened-synthesis)  
+  - [Hierarchical Synthesis](#hierarchical-synthesis)  
+  - [Flattened Synthesis](#flattened-synthesis)  
+  - [Key Differences](#key-differences)  
 
-### Decoding tt_025C_1v80 in the SKY130 PDK
+- [🔁 Flip-Flop Coding Styles](#-flip-flop-coding-styles)  
+  - [Asynchronous Reset DFF](#asynchronous-reset-d-flip-flop)  
+  - [Asynchronous Set DFF](#asynchronous-set-d-flip-flop)  
+  - [Synchronous Reset DFF](#synchronous-reset-d-flip-flop)  
 
-- **tt**: Typical process corner.
-- **025C**: Represents a temperature of 25°C, relevant for temperature-dependent performance.
-- **1v80**: Indicates a core voltage of 1.8V.
+- [⚙️ Simulation & Synthesis Workflow](#️-simulation--synthesis-workflow)  
+  - [Simulation with Icarus Verilog](#simulation-with-icarus-verilog)  
+  - [Synthesis with Yosys](#synthesis-with-yosys)  
 
-This naming convention clarifies which process, voltage, and temperature conditions the library models.
+- [✅ Summary](#-summary)  
 
 ---
 
-### Opening and Exploring the .lib File
+## ⏱️ Timing Libraries  
 
-To open the sky130_fd_sc_hd__tt_025C_1v80.lib file:
+### SKY130 PDK Overview  
+The **SKY130 PDK** is an open-source CMOS technology kit at **130nm node**.  
+It provides **timing, power, and process variation models**, essential for IC design.  
 
-1. **Install a text editor:**
-   ```shell
+---
+
+### Decoding **tt_025C_1v80**  
+The naming convention of `.lib` files encodes **process-voltage-temperature (PVT)** corners:  
+
+| Code | Meaning |
+|------|---------|
+| `tt` | Typical process corner |
+| `025C` | 25°C operating temperature |
+| `1v80` | 1.8 V supply voltage |
+
+This ensures accurate modeling across real-world scenarios.  
+
+---
+
+### Opening the `.lib` File  
+
+1. Install an editor:  
+   ```bash
    sudo apt install gedit
+
    ```
 2. **Open the file:**
    ```shell
@@ -72,16 +81,18 @@ To open the sky130_fd_sc_hd__tt_025C_1v80.lib file:
 ### Hierarchical Synthesis
 
 - **Definition**: Retains the module hierarchy as defined in RTL, synthesizing modules separately.
-- **How it Works**: Tools like Yosys process each module independently, using commands such as `hierarchy` to analyze and set up the design structure.
+- **How it Works**: Tools like Yosys process each module independently, using commands such as `hierarchy` to analyze and set up the design structure
+- **Description:** Preserves RTL structure. Synthesizes modules independently.
 
-**Advantages:**
-- Faster synthesis time for large designs.
-- Improved debugging and analysis due to maintained module boundaries.
-- Modular approach, aiding integration with other tools.
+- **Pros:**
+  - ✅ Faster for large designs
+  - ✅ Easier debugging (traceable to RTL)
+  - ✅ Modular and reusable
 
-**Disadvantages:**
-- Cross-module optimizations are limited.
-- Reporting can require additional configuration.
+- **Cons:**
+  - ❌ Limited cross-module optimizations
+  - ❌ Requires additional reporting setup
+
 
 **Example:**
 ![Screenshot_2025-05-29_19-04-48](https://github.com/user-attachments/assets/91f0244a-2c41-42ea-be6f-468880c3af33)
@@ -93,15 +104,17 @@ To open the sky130_fd_sc_hd__tt_025C_1v80.lib file:
 
 - **Definition**: Merges all modules into a single flat netlist, eliminating hierarchy.
 - **How it Works**: The `flatten` command in Yosys collapses the hierarchy, allowing whole-design optimizations.
+- **Description:** Collapses hierarchy into a single flat netlist. Optimizes across modules.
 
-**Advantages:**
-- Enables aggressive, cross-module optimizations.
-- Results in a unified netlist, sometimes simplifying downstream processes.
+- **Pros:**
+  - ✅ Aggressive global optimization
+  - ✅ Unified netlist
 
-**Disadvantages:**
-- Longer runtime for large designs.
-- Loss of hierarchy complicates debugging and reporting.
-- Can increase memory usage and netlist complexity.
+- **Cons:**
+  - ❌ Slower runtime
+  - ❌ Debugging harder (lost hierarchy)
+  - ❌ Larger memory footprint
+
 
 **Example:**
 
@@ -111,16 +124,16 @@ To open the sky130_fd_sc_hd__tt_025C_1v80.lib file:
 
 ---
 
-### Key Differences
+### Key Differences: Hierarchical vs Flattened Synthesis
 
-| Aspect                | Hierarchical Synthesis             | Flattened Synthesis           |
-|-----------------------|------------------------------------|------------------------------|
-| Hierarchy             | Preserved                          | Collapsed                    |
-| Optimization Scope    | Module-level only                  | Whole-design                 |
-| Runtime               | Faster for large designs           | Slower for large designs     |
-| Debugging             | Easier (traces to RTL)             | Harder                       |
-| Output Complexity     | Modular structure                  | Single, complex netlist      |
-| Use Case              | Modularity, analysis, reporting    | Maximum optimization         |
+| **Aspect**            | **Hierarchical 🧩**                  | **Flattened 🏗️**              |
+|-----------------------|------------------------------------|--------------------------------|
+| **Hierarchy**          | Preserved                           | Collapsed                     |
+| **Optimization Scope** | Module-level                        | Global                         |
+| **Runtime**            | ⚡ Faster (ideal for big SoCs)      | 🐢 Slower                      |
+| **Debugging**          | 🛠️ Easier                           | 🔍 Harder                       |
+| **Netlist Style**      | Modular                             | Single block                   |
+| **Use Case**           | ✅ Debug, modular flows             | 🚀 Max performance             |
 
 ---
 
