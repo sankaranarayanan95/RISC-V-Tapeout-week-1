@@ -57,9 +57,9 @@ The **testbench** is a virtual lab environment that feeds inputs to your design 
 
 ---
 
-## 3. Lab: Simulating a 2-to-1 Multiplexer
+## 3. Lab: Simulating a 4 bit Counter
 
-Let’s simulate a simple **2-to-1 multiplexer** using iverilog!
+Let’s simulate a simple **4 bit Counter** using iverilog!
 
 ###  Step 1: Clone the Workshop Repository
 
