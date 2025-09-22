@@ -218,7 +218,7 @@ Let’s synthesize the `good_counter` design using Yosys!
 <div align="center">
   <img src="/images/counter_synthesis.png" alt="GTKWave Counter Output" width="70%">
 </div>
----
+
 
 ## 7. Summary
 
