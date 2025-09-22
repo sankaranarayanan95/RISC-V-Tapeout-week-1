@@ -170,12 +170,18 @@ A `.lib` file contains many versions of each gate (like AND, OR, NOT) with diffe
 - **Drive Strength:** Stronger gates to drive more load
 - **Signal Integrity:** Specialized gates for noise/performance
 - **Mapping:** Synthesis tools pick the best flavor for your needs
+  <div align="center">
+  <img src="/images/yosys_setup.png" alt="GTKWave Counter Output" width="70%">
+</div>
 
 ---
 
 ## 6. Synthesis Lab with Yosys
+  <div align="center">
+  <img src="/images/verify_synthesis.png" alt="GTKWave Counter Output" width="70%">
+</div>
 
-Let’s synthesize the `good_mux` design using Yosys!
+Let’s synthesize the `good_counter` design using Yosys!
 
 ###  Step-by-Step Yosys Flow
 
