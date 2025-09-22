@@ -99,7 +99,7 @@ gtkwave tb_good_mux.vcd
 ```
 
 <div align="center">
-  <img src="./Day1/gtkwave_counter_out.png" alt="Day 1 RTL Workshop" width="70%">
+  <img src="gtkwave_counter_out.png" alt="GTKWave Counter Output" width="70%">
 </div>
 
 ---
