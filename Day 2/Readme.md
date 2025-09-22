@@ -71,7 +71,9 @@ This ensures accurate modeling across real-world scenarios.
    ```shell
    gedit sky130_fd_sc_hd__tt_025C_1v80.lib
    ```
- ![Screenshot_2025-05-29_11-43-13](https://github.com/user-attachments/assets/0c31ddf8-8a95-44a4-acaa-e1c5f0518425)
+ <div align="center">
+  <img src="skywater130_lib.png" alt="GTKWave Counter Output" width="70%">
+</div>
 
 
 ---
@@ -95,7 +97,20 @@ This ensures accurate modeling across real-world scenarios.
 
 
 **Example:**
-![Screenshot_2025-05-29_19-04-48](https://github.com/user-attachments/assets/91f0244a-2c41-42ea-be6f-468880c3af33)
+<div align="center">
+  <img src="hier_file.png" alt="GTKWave Counter Output" width="70%">
+</div>
+
+This version:  
+- Adds **sections** (Inputs, Wires, Nets, Outputs).  
+- Highlights the **cell instantiation** (`sky130_fd_sc_hd__and2_2`).  
+- Escapes unusual identifiers like `\u1.a`.  
+- Presents hierarchy cleanly for **reports/GitHub README**.  
+
+
+<div align="center">
+  <img src="hier_syn.png" alt="GTKWave Counter Output" width="70%">
+</div>
 
 
 ---
@@ -118,7 +133,23 @@ This ensures accurate modeling across real-world scenarios.
 
 **Example:**
 
-![Screenshot_2025-05-29_19-20-47](https://github.com/user-attachments/assets/e1d94a5d-d3f7-41ee-8e69-ca0c05be81a3)
+<div align="center">
+  <img src="flat_file.png" alt="GTKWave Counter Output" width="70%">
+</div>
+
+
+This version:  
+- Adds **sections** (wires, inputs, nets, outputs).  
+- Highlights the **cell instantiation** (`sky130_fd_sc_hd__and2_2`).  
+- Escapes weird identifiers like `\u1.a`.  
+
+---
+
+
+<div align="center">
+  <img src="flat_syn.png" alt="GTKWave Counter Output" width="70%">
+</div>
+
 
 > **Important:** Hierarchical synthesis maintains sub-modules in the design, while flattening produces a netlist from the ground up.
 
