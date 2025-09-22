@@ -1,4 +1,4 @@
-# 📘 Week 2 – RISC-V Reference SoC Tapeout Program  
+# 📘 Week 1 – RISC-V Reference SoC Tapeout Program  
 
 <div align="center">
 
