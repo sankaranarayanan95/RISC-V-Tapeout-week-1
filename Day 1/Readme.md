@@ -232,12 +232,12 @@ write_verilog bad_counter_netlist.v
 ```
 This command writes the synthesized gate-level netlist into a Verilog file named bad_counter_netlist.v
 
-## 2.Open the netlist in gVim
+## 2.Open the netlist in gedit
 ```bash
 gedit good_counter_netlist.v
 ```
 🔹 The ! allows running shell commands inside Yosys.
-🔹 This opens the generated netlist in the gvim editor for inspection.
+🔹 This opens the generated netlist in the gedit editor for inspection.
 
 <div align="center">
   <img src="read_netlist.png" alt="GTKWave Counter Output" width="70%">
@@ -253,7 +253,7 @@ write_verilog -noattr good_counter_netlist.v
 🔹 This generates the netlist without additional attributes/annotations such as synthesis-specific details.
 🔹 It produces a cleaner file for readability.
 
-## 4. Open the cleaned netlist in gVim
+## 4. Open the cleaned netlist in gedit
 ```bash
 gedit good_counter_netlist.v
 ```
