@@ -34,7 +34,7 @@
 - 💰 Cost cutter: Optimizes for ASIC/FPGA fab  
 
  <p align="center">
-   <img src="const.png" alt="GTKWave Counter Output" width="300%">
+   <img src="const.png" alt="GTKWave Counter Output" width="60%">
 </p>
 
 **Pro Tip:** In Yosys, `opt` pass auto-handles this; watch for warnings on unpropagated seq constants.
@@ -95,7 +95,7 @@ Yosys `fsm` optimizes to fewer FFs; simulate toggles to verify power win!
 6. 🌟 *Fancy Twist:* Sequential cloning for datapaths – duplicate FFs for pipeline balance  
 
   <p align="center">
-   <img src="cloning.png" alt="GTKWave Counter Output" width="300%">
+   <img src="cloning.png" alt="GTKWave Counter Output" width="60%">
 </p>
 
 **Example Snippet:** Clone a mux for high-fan-out adder result.  
@@ -138,7 +138,7 @@ module retimed_adder (input clk, [7:0] a, b, output reg [8:0] sum);
 endmodule
 ```
  <p align="center">
-   <img src="retimed.png" alt="GTKWave Counter Output" width="300%">
+   <img src="retimed.png" alt="GTKWave Counter Output" width="60%">
 </p>
 
 Tools like Vivado auto-retime; manual for control.
