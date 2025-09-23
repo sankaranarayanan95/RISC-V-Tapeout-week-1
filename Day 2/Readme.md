@@ -7,6 +7,7 @@
 ![Simulation](https://img.shields.io/badge/Simulation-Icarus%20Verilog-orange?style=for-the-badge)  
 ![Waveforms](https://img.shields.io/badge/GTKWave-Visualization-lightgrey?style=for-the-badge)  
 
+
 </div>
 
 Welcome to **Day 2** of the RTL Workshop 🌟.  
@@ -96,6 +97,27 @@ This ensures accurate modeling across real-world scenarios.
   - ❌ Requires additional reporting setup
 
 
+# Read Standard Cell Library
+```shell
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+# Read RTL File
+```shell
+read_verilog good_mux.v
+```
+# Check & Setup Hierarchy
+```shell
+hierarchy -check -top good_mux
+```
+# Synthesize Design
+```shell
+synth -top good_mux
+```
+# Generate Hierarchical Netlist
+```shell
+write_verilog -noattr good_mux_netlist_hier.v
+```
+
 **Example:**
 <div align="center">
   <img src="hier_file.png" alt="GTKWave Counter Output" width="70%">
@@ -130,7 +152,11 @@ This version:
   - ❌ Debugging harder (lost hierarchy)
   - ❌ Larger memory footprint
 
-
+# Generate Flattened Netlist
+```shell
+flatten
+write_verilog -noattr good_mux_netlist_flat.v
+```
 **Example:**
 
 <div align="center">
@@ -230,8 +256,28 @@ endmodule
    ```shell
    gtkwave tb_dff_asyncres.vcd
    ```
-![Screenshot_2025-05-30_10-45-13](https://github.com/user-attachments/assets/1176581e-fd6c-4b71-8af5-5d7d5f6dbcda)
+   
+   ---
+   
+### Asynchronous Reset Simulation
+- When the asyn_res = 1, the Q = 0.
+- Even when clk = 1.
+- It does not wait for the clk to be 1.
+<div align="center">
+  <img src="asyn_res.png" alt="GTKWave Counter Output" width="70%">
+</div>
 
+---
+
+### Synchronous Reset Simulation
+- When the syn_res = 1, the Q = 0 only at clk = 1
+- only when clk = 1.
+- It always waits for the clk to be 1.
+  <div align="center">
+  <img src="syn_res.png" alt="GTKWave Counter Output" width="70%">
+</div>
+
+---
 
 ### Synthesis with Yosys
 
@@ -241,11 +287,11 @@ endmodule
    ```
 2. Read Liberty library:
    ```shell
-   read_liberty -lib /address/to/your/sky130/file/sky130_fd_sc_hd__tt_025C_1v80.lib
+   read_liberty -lib ..//lib/sky130_fd_sc_hd__tt_025C_1v80.lib
    ```
 3. Read Verilog code:
    ```shell
-   read_verilog /path/to/dff_asyncres.v
+   read_verilog dff_asyncres.v
    ```
 4. Synthesize:
    ```shell
@@ -253,17 +299,19 @@ endmodule
    ```
 5. Map flip-flops:
    ```shell
-   dfflibmap -liberty /address/to/your/sky130/file/sky130_fd_sc_hd__tt_025C_1v80.lib
+   dfflibmap -lib ..//lib/sky130_fd_sc_hd__tt_025C_1v80.lib
    ```
 6. Technology mapping:
    ```shell
-   abc -liberty /address/to/your/sky130/file/sky130_fd_sc_hd__tt_025C_1v80.lib
+   abc -liberty ..//lib/sky130_fd_sc_hd__tt_025C_1v80.lib
    ```
 7. Visualize the gate-level netlist:
    ```shell
    show
    ```
-![Screenshot_2025-05-30_11-03-00](https://github.com/user-attachments/assets/fa8337df-e0ec-4b01-9b18-5910768e4421)
+<div align="center">
+  <img src="flop_synth.png" alt="GTKWave Counter Output" width="70%">
+</div>
 
 
 ---
