@@ -154,10 +154,27 @@ Tools like Vivado auto-retime; manual for control.
 module opt_mux1 (input a, b, output y);
     assign y = a ? b : 1'b0;  // Const 0 propagates
 endmodule
-```  
-**Expected:** Simplifies to AND gate. Run `opt_clean -purge` – y = a & b!  
+```
+**Explanation:**
+- `assign y = a ? b : 0;` means:
+  - If `a` is true, `y` is assigned the value of `b`.
+  - If `a` is false, `y` is 0.
+  - 
+**Expected:** Simplifies to AND gate. Run `opt_clean -purge` – y = a & b!
 
-![Lab 1](https://github.com/user-attachments/assets/4d224d8d-f6f5-4a37-9732-ab570b64e31e)  
+```shell
+read_verilog opt_check.v
+synth -top opt_check
+opt_clean purge
+abc ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+ <p align="center">
+   <img src="opt_check.png" alt="GTKWave Counter Output" width="60%">
+</p>
+
+---
 
 ### Lab 2: Const 1 Mux  
 ```verilog
@@ -167,7 +184,11 @@ endmodule
 ```  
 **Expected:** OR gate: y = a | b.  
 
-![Lab 2](https://github.com/user-attachments/assets/59545745-8a8b-4afd-b4d5-0a3ad1d5b80e)  
+ <p align="center">
+   <img src="opt_check2.png" alt="GTKWave Counter Output" width="60%">
+</p>
+
+---
 
 ### Lab 3: Duplicate Mux (State Opt Tease)  
 ```verilog
@@ -178,9 +199,13 @@ endmodule
 ```  
 **Expected:** Same OR; param propagates for reconfigurability.  
 
-![Lab 3](https://github.com/user-attachments/assets/157b16d3-cecd-441a-aacf-bae296910886)  
+ <p align="center">
+   <img src="opt_check3.png" alt="GTKWave Counter Output" width="60%">
+</p>
 
-### Lab 4: Nested Ternary Simplification  
+---
+
+### Lab 4: Multiple Modules Flatten Optimixation   
 ```verilog
 module opt_nested (input a, b, c, output y);
     assign y = a ? (b ? (a & c) : c) : !c;  // Simplifies to y = a ? c : !c
@@ -190,7 +215,19 @@ endmodule
 
 ![Lab 4](https://github.com/user-attachments/assets/08d1e447-78c6-47c4-8c99-239645b38617)  
 
-### Lab 5: DFF Const Load (Seq Prop Fail)  
+---
+
+### Lab 5: Nested Ternary Simplification  
+```verilog
+module opt_nested (input a, b, c, output y);
+    assign y = a ? (b ? (a & c) : c) : !c;  // Simplifies to y = a ? c : !c
+endmodule
+```  
+**Expected:** XOR-like: y = a ^ ~c. Fancy fold!  
+
+![Lab 4](https://github.com/user-attachments/assets/08d1e447-78c6-47c4-8c99-239645b38617)  
+
+### Lab 6: DFF Const Load (Seq Prop Fail)  
 ```verilog
 module dff_const_load (input clk, reset, output reg q);
     always @(posedge clk, posedge reset) begin
@@ -201,9 +238,9 @@ endmodule
 ```  
 **Expected:** Full FF retained – can't optimize Q to const due to reset.  
 
-![Lab 5](https://github.com/user-attachments/assets/a42fac06-a092-4efc-be39-33b263caaaa1)  
+![Lab 7](https://github.com/user-attachments/assets/a42fac06-a092-4efc-be39-33b263caaaa1)  
 
-### Lab 6: Full Const DFF  
+### Lab 7: Full Const DFF  
 ```verilog
 module dff_full_const (input clk, reset, output reg q);
     always @(posedge clk, posedge reset) begin
@@ -214,9 +251,9 @@ endmodule
 ```  
 **Expected:** Optimized to tie-high; no FF needed.  
 
-![Lab 6](https://github.com/user-attachments/assets/ae45f7db-0a7f-4256-b43b-01cc4a1588f7)  
+![Lab ](https://github.com/user-attachments/assets/ae45f7db-0a7f-4256-b43b-01cc4a1588f7)  
 
-### Lab 7: Fancy FSM State Reduction (New!)  
+### Lab 8: Fancy FSM State Reduction (New!)  
 ```verilog
 module fancy_fsm (input clk, rst_n, go, output reg done);
     reg [2:0] state;  // 8 states, but optimizable to 4
@@ -237,7 +274,7 @@ endmodule
 ```  
 **Expected:** Yosys `fsm` merges IDLE/IDLE2, LOAD/LOAD2 → fewer states/FFs. Gray encode for power!  
 
-### Lab 8: Retiming Pipeline (New!)  
+### Lab 9: Retiming Pipeline (New!)  
 ```verilog
 module retime_pipe (input clk, [15:0] data_in, output reg [15:0] data_out);
     reg [15:0] stage1;
