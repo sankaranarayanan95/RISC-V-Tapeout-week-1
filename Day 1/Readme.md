@@ -220,6 +220,51 @@ Let’s synthesize the `good_counter` design using Yosys!
 </div>
 
 
+
+## 📝 Exporting Netlists with Yosys
+
+Once inside Yosys, we can write out the netlist in different forms:
+
+## 1. Write the synthesized netlist
+
+```bash
+write_verilog bad_counter_netlist.v
+```
+This command writes the synthesized gate-level netlist into a Verilog file named bad_counter_netlist.v
+
+## 2.Open the netlist in gVim
+```bash
+gedit good_counter_netlist.v
+```
+🔹 The ! allows running shell commands inside Yosys.
+🔹 This opens the generated netlist in the gvim editor for inspection.
+
+<div align="center">
+  <img src="read_netlistpng" alt="GTKWave Counter Output" width="70%">
+</div>
+
+---
+
+## 3. Write netlist without attributes
+
+```bash
+write_verilog -noattr good_counter_netlist.v
+```
+🔹 This generates the netlist without additional attributes/annotations such as synthesis-specific details.
+🔹 It produces a cleaner file for readability.
+
+## 4. Open the cleaned netlist in gVim
+```bash
+gedit good_counter_netlist.v
+```
+🔹 Opens the new netlist file (without attributes) in the editor.
+
+<div align="center">
+  <img src="noattr.png" alt="GTKWave Counter Output" width="70%">
+</div>
+
+
+
 ## 7. Summary
 
 - You learned about simulators, designs, and testbenches.
