@@ -207,13 +207,32 @@ endmodule
 
 ### Lab 4: Multiple Modules Flatten Optimixation   
 ```verilog
-module opt_nested (input a, b, c, output y);
-    assign y = a ? (b ? (a & c) : c) : !c;  // Simplifies to y = a ? c : !c
+module sub_module1(input a , input b , output y);
+ assign y = a & b;
+endmodule
+
+module sub_module2(input a , input b , output y);
+ assign y = a^b;
+endmodule
+
+module multiple_module_opt(input a , input b , input c , input d , output y);
+wire n1,n2,n3;
+
+sub_module1 U1 (.a(a) , .b(1'b1) , .y(n1));
+sub_module2 U2 (.a(n1), .b(1'b0) , .y(n2));
+sub_module2 U3 (.a(b), .b(d) , .y(n3));
+
+assign y = c | (b & n1); 
+
+
 endmodule
 ```  
 **Expected:** XOR-like: y = a ^ ~c. Fancy fold!  
 
-![Lab 4](https://github.com/user-attachments/assets/08d1e447-78c6-47c4-8c99-239645b38617)  
+ <p align="center">
+   <img src="multpile_module_opt.png" alt="GTKWave Counter Output" width="60%">
+</p>
+
 
 ---
 
