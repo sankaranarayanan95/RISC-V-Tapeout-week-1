@@ -240,7 +240,7 @@ gedit good_counter_netlist.v
 🔹 This opens the generated netlist in the gvim editor for inspection.
 
 <div align="center">
-  <img src="read_netlistpng" alt="GTKWave Counter Output" width="70%">
+  <img src="read_netlist.png" alt="GTKWave Counter Output" width="70%">
 </div>
 
 ---
