@@ -33,7 +33,9 @@
 - 🔋 Eco-mode: Less switching = greener chips  
 - 💰 Cost cutter: Optimizes for ASIC/FPGA fab  
 
-![Constant Propagation Magic](https://github.com/user-attachments/assets/d7f06056-66c1-44af-99a8-623fdf5879be)  
+ <p align="center">
+   <img src="const.png" alt="GTKWave Counter Output" width="300%">
+</p>
 
 **Pro Tip:** In Yosys, `opt` pass auto-handles this; watch for warnings on unpropagated seq constants.
 
@@ -92,7 +94,9 @@ Yosys `fsm` optimizes to fewer FFs; simulate toggles to verify power win!
 5. ✅ Re-validate: Check power bump vs. timing gain; use retiming post-clone  
 6. 🌟 *Fancy Twist:* Sequential cloning for datapaths – duplicate FFs for pipeline balance  
 
-![Cloning Hydra](https://github.com/user-attachments/assets/6bdd2c12-02a2-4ea5-895c-98e349b93bac)  
+  <p align="center">
+   <img src="cloning.png" alt="GTKWave Counter Output" width="300%">
+</p>
 
 **Example Snippet:** Clone a mux for high-fan-out adder result.  
 
@@ -133,6 +137,9 @@ module retimed_adder (input clk, [7:0] a, b, output reg [8:0] sum);
     end
 endmodule
 ```
+ <p align="center">
+   <img src="retimed.png" alt="GTKWave Counter Output" width="300%">
+</p>
 
 Tools like Vivado auto-retime; manual for control.
 
