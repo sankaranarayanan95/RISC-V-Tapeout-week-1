@@ -1,4 +1,4 @@
-<img width="1920" height="1063" alt="image" src="https://github.com/user-attachments/assets/f2c439ce-8c59-44a5-b6b0-d11bf0bda204" /># 🌟 Day 1 – Introduction to Verilog RTL Design & Synthesis  
+# 🌟 Day 1 – Introduction to Verilog RTL Design & Synthesis  
 
 <div align="center">
 
