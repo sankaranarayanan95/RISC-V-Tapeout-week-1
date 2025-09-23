@@ -73,7 +73,7 @@ This ensures accurate modeling across real-world scenarios.
    gedit sky130_fd_sc_hd__tt_025C_1v80.lib
    ```
  <div align="center">
-  <img src="skywater130_lib.png" alt="GTKWave Counter Output" width="70%">
+  <img src="skywater130_lib.png" alt="GTKWave Counter Output" width="100%">
 </div>
 
 
@@ -173,7 +173,7 @@ This version:
 
 
 <div align="center">
-  <img src="flat_syn.png" alt="GTKWave Counter Output" width="70%">
+  <img src="flat_syn.png" alt="GTKWave Counter Output" width="100%">
 </div>
 
 
@@ -264,7 +264,7 @@ endmodule
 - Even when clk = 1.
 - It does not wait for the clk to be 1.
 <div align="center">
-  <img src="asyn_res.png" alt="GTKWave Counter Output" width="70%">
+  <img src="asyn_res.png" alt="GTKWave Counter Output" width="100%">
 </div>
 
 ---
@@ -274,7 +274,7 @@ endmodule
 - only when clk = 1.
 - It always waits for the clk to be 1.
   <div align="center">
-  <img src="syn_res.png" alt="GTKWave Counter Output" width="70%">
+  <img src="syn_res.png" alt="GTKWave Counter Output" width="100%">
 </div>
 
 ---
@@ -310,7 +310,7 @@ endmodule
    show
    ```
 <div align="center">
-  <img src="flop_synth.png" alt="GTKWave Counter Output" width="70%">
+  <img src="flop_synth.png" alt="GTKWave Counter Output" width="100%">
 </div>
 
 
