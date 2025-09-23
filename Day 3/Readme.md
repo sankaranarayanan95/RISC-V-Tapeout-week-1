@@ -230,7 +230,7 @@ endmodule
 **Expected:** XOR-like: y = a ^ ~c. Fancy fold!  
 
  <p align="center">
-   <img src="multpile_module_opt.png" alt="GTKWave Counter Output" width="60%">
+   <img src="multple_module_opt.png" alt="GTKWave Counter Output" width="60%">
 </p>
 
 
