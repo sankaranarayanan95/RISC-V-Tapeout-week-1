@@ -1,4 +1,4 @@
-# 🌟 Day 1 – Introduction to Verilog RTL Design & Synthesis  
+<img width="1920" height="1063" alt="image" src="https://github.com/user-attachments/assets/f2c439ce-8c59-44a5-b6b0-d11bf0bda204" /># 🌟 Day 1 – Introduction to Verilog RTL Design & Synthesis  
 
 <div align="center">
 
@@ -192,12 +192,12 @@ Let’s synthesize the `good_counter` design using Yosys!
 
 2. **Read the liberty library**
     ```shell
-    read_liberty -lib /address/to/your/sky130/file/sky130_fd_sc_hd__tt_025C_1v80.lib
+    read_liberty -lib ..//lib/sky130_fd_sc_hd__tt_025C_1v80.lib
     ```
 
 3. **Read the Verilog code**
     ```shell
-    read_verilog /home/vsduser/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files/good_mux.v
+    read_verilog good_mux.v
     ```
 
 4. **Synthesize the design**
@@ -207,7 +207,7 @@ Let’s synthesize the `good_counter` design using Yosys!
 
 5. **Technology mapping**
     ```shell
-    abc -liberty /address/to/your/sky130/file/sky130_fd_sc_hd__tt_025C_1v80.lib
+    abc -liberty ..//lib/sky130_fd_sc_hd__tt_025C_1v80.lib
     ```
 
 6. **Visualize the gate-level netlist**
