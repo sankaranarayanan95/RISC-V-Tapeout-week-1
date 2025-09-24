@@ -214,7 +214,9 @@ module ternary_operator_mux (input i0, input i1, input sel, output y);
 endmodule
 ```
 
-![Lab 1 Output](https://github.com/user-attachments/assets/3f5eb05a-1861-4bb8-940c-6ff9f2af87fb)
+<p align="center">
+   <img src="tmux_wave.png" alt="GTKWave Counter Output" width="60%">
+</p>
 
 ---
 
@@ -222,18 +224,28 @@ endmodule
 **Description**: Synthesize the MUX from Lab 1 using Yosys.  
 **Instructions**: Follow the standard Yosys synthesis flow (e.g., `read_verilog`, `synth`, `write_verilog`).
 
-![Lab 2 Output](https://github.com/user-attachments/assets/7a0cdc7c-cbbd-4943-bd3d-130a0d66b9b1)
+<p align="center">
+   <img src="tmux_synth.png" alt="GTKWave Counter Output" width="60%">
+</p>
 
 ---
 
 ### Lab 3: Gate-Level Simulation (GLS) of MUX
 **Description**: Run GLS on the synthesized MUX netlist.  
+## 📂 Required Files  
+1️⃣ **primitives.v** → Standard cell primitives  
+2️⃣ **sky130_fd_sc_hd.v** → SKY130 standard cell library  
+3️⃣ **your_file.v** → Your synthesized netlist (design under test)  
+4️⃣ **tb_your_file.v** → Testbench for simulation  
+
 **Command**:
 ```shell
-iverilog /path/to/primitives.v /path/to/sky130_fd_sc_hd.v ternary_operator_mux.v testbench.v
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux.v tb_ternary_operator_mux.
 ```
 
-![Lab 3 Output](https://github.com/user-attachments/assets/9acf45b3-2e42-4ac1-88ae-b4a494cc8d87)
+<p align="center">
+   <img src="tmux_gls.png" alt="GTKWave Counter Output" width="60%">
+</p>
 
 ---
 
