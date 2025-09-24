@@ -249,9 +249,13 @@ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_
 
 ---
 
-### Lab 4: Bad MUX Example
-**Description**: Demonstrates common Verilog pitfalls causing synthesis-simulation mismatches.  
-**Original Code** (with issues):
+## 🧪 Lab 4: The Misadventure of the Bad MUX 😱
+
+**📘 Overview**: This lab showcases a classic **multiplexer (MUX)** gone wrong, highlighting pitfalls that lead to synthesis-simulation mismatches. Let’s debug and perfect it!
+
+### ❌ Problematic Code: The Troubled MUX
+Here’s the original code, riddled with issues:
+
 ```verilog
 module bad_mux (input i0, input i1, input sel, output reg y);
     always @(sel) begin
@@ -263,11 +267,17 @@ module bad_mux (input i0, input i1, input sel, output reg y);
 endmodule
 ```
 
-**Issues**:
-- Incomplete sensitivity list (missing `i0`, `i1`).
-- Non-blocking assignments (`<=`) in combinational logic.
+**🚨 Issues Uncovered**:
+- 🔴 **Incomplete Sensitivity List**: The `always @(sel)` block only triggers on `sel` changes, ignoring `i0` and `i1`. This leads to a mismatch between simulation (where outputs may not update) and synthesis (where tools assume combinational logic).
+- 🔴 **Non-Blocking Assignments in Combinational Logic**: Using `<=` in a combinational block can cause unexpected behavior, as it’s meant for sequential logic.
 
-**Corrected Code**:
+<p align="center">
+   <img src="dmux_wave.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+### ✅ Fixed Code: A Polished MUX
+Here’s the corrected version, ready to shine:
+
 ```verilog
 module bad_mux (input i0, input i1, input sel, output reg y);
     always @(*) begin
@@ -279,56 +289,106 @@ module bad_mux (input i0, input i1, input sel, output reg y);
 endmodule
 ```
 
-<p align="center">
-   <img src="dmux_wave.png" alt="GTKWave Counter Output" width="100%">
-</p>
+**🎯 Takeaway**: Always use `@(*)` for combinational logic and `=` for immediate updates to avoid sneaky mismatches!
 
 ---
 
-### Lab 5: GLS of Bad MUX
-**Description**: Perform GLS on the `bad_mux` to observe mismatches or warnings.  
-**Expected**: Issues due to improper sensitivity list and assignments.
+## 🧪 Lab 5: Gate-Level Simulation (GLS) of the Bad MUX 🔍
 
-![Lab 5 Output](https://github.com/user-attachments/assets/2e698404-27b5-4c4a-a811-41b5fc13db77)
+**📘 Overview**: Let’s run **Gate-Level Simulation (GLS)** on the problematic `bad_mux` to observe the chaos caused by its flaws.
 
----
+**⚠️ Expected Behavior**:
+- **Simulation Mismatch**: Due to the incomplete sensitivity list, the output `y` may not update correctly in simulation when `i0` or `i1` changes, while synthesis assumes full combinational behavior.
+- **Tool Warnings**: GLS tools will likely flag warnings about the sensitivity list or mismatched behavior.
 
-### Lab 6: Blocking Assignment Caveat
-**Description**: Highlights issues with blocking assignment order.  
-**Original Code** (with issue):
-```verilog
-module blocking_caveat (input a, input b, input c, output reg d);
-    reg x;
-    always @(*) begin
-        d = x & c;
-        x = a | b;
-    end
-endmodule
+**🛠️ How to Test**:
+1. Synthesize the original `bad_mux` using a standard cell library (e.g., Sky130).
+2. Run GLS with a testbench toggling `i0`, `i1`, and `sel`.
+3. Compare simulation results with expected combinational behavior.
+
+**Command**:
+```shell
+write_verilog bad_mux_net.v
+```
+```shell
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_net.v tb_bad_mux
 ```
 
-**Issue**: `d` uses old value of `x` due to assignment order.  
-**Corrected Code**:
-```verilog
-module blocking_caveat (input a, input b, input c, output reg d);
-    reg x;
-    always @(*) begin
-        x = a | b;
-        d = x & c;
-    end
-endmodule
-```
+**📊 Fixes Applied**:
+- ✅ **Complete Sensitivity List**: Switched to `@(*)` to automatically include all inputs (`i0`, `i1`, `sel`), ensuring proper triggering.
+- ✅ **Blocking Assignments**: Replaced `<=` with `=` for combinational logic, aligning simulation and synthesis behavior.
 
 <p align="center">
    <img src="dmux_gls.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
+**🎯 Takeaway**: GLS exposes mismatches early, saving you from costly debug cycles in hardware!
+
 ---
 
-### Lab 7: Synthesis of Blocking Caveat Module
-**Description**: Synthesize the corrected `blocking_caveat` module and verify results.  
-**Instructions**: Use Yosys to synthesize and analyze the netlist.
+## 🧪 Lab 6: The Blocking Assignment Trap 🕳️
 
-![Lab 7 Output](https://github.com/user-attachments/assets/833bfacc-3b76-40fa-814c-47f0d783a6e0)
+**📘 Overview**: This lab reveals how the order of **blocking assignments** in combinational logic can lead to unexpected results. Let’s fix a sneaky bug in the `blocking_caveat` module!
+
+### ❌ Problematic Code: Order Matters
+Here’s the original code with a subtle but critical flaw:
+
+```verilog
+module blocking_caveat (input a, input b, input c, output reg d);
+    reg x;
+    always @(*) begin
+        d = x & c;
+        x = a | b;
+    end
+endmodule
+```
+
+**🚨 Issue Uncovered**:
+- 🔴 **Wrong Assignment Order**: The output `d` is computed using the *old* value of `x` because `x = a | b` comes *after* `d = x & c`. This leads to stale data in simulation and synthesis.
+
+### ✅ Fixed Code: Order Restored
+Here’s the corrected version, ensuring logical flow:
+
+```verilog
+module blocking_caveat (input a, input b, input c, output reg d);
+    reg x;
+    always @(*) begin
+        x = a | b;
+        d = x & c;
+    end
+endmodule
+```
+
+**📊 Fixes Applied**:
+- ✅ **Correct Assignment Order**: Moved `x = a | b` before `d = x & c`, ensuring `d` uses the updated value of `x`.
+
+**🎯 Takeaway**: In combinational logic, order your blocking assignments carefully to reflect data dependencies!
+
+---
+
+## 🧪 Lab 7: Synthesizing the Blocking Caveat Module 🏭
+
+**📘 Overview**: Let’s synthesize the corrected `blocking_caveat` module using **Yosys** and verify a clean, optimized netlist.
+
+**🔧 Synthesis Instructions**:
+Run the following Yosys commands to synthesize the module:
+
+```tcl
+read_liberty -lib sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog blocking_caveat.v
+synth -top blocking_caveat
+write_verilog blocking_caveat_netlist.v
+```
+
+**✅ Expected Results**:
+- **Clean Synthesis**: No warnings or errors, as the corrected module uses proper sensitivity lists and assignment ordering.
+- **Optimized Netlist**: The output `blocking_caveat_netlist.v` reflects the intended logic: `d = (a | b) & c`.
+
+**🛠️ Verification Steps**:
+1. Inspect the netlist for correct gate-level implementation.
+2. Run GLS on the netlist to confirm matching behavior with RTL simulation.
+
+**🎯 Takeaway**: Proper Verilog coding ensures smooth synthesis and reliable hardware implementation!
 
 ---
 
