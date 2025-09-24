@@ -215,7 +215,7 @@ endmodule
 ```
 
 <p align="center">
-   <img src="tmux_wave.png" alt="GTKWave Counter Output" width="60%">
+   <img src="tmux_wave.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 ---
@@ -225,7 +225,7 @@ endmodule
 **Instructions**: Follow the standard Yosys synthesis flow (e.g., `read_verilog`, `synth`, `write_verilog`).
 
 <p align="center">
-   <img src="tmux_synth.png" alt="GTKWave Counter Output" width="60%">
+   <img src="tmux_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 ---
@@ -244,7 +244,7 @@ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_
 ```
 
 <p align="center">
-   <img src="tmux_gls.png" alt="GTKWave Counter Output" width="60%">
+   <img src="tmux_gls.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 ---
@@ -279,7 +279,9 @@ module bad_mux (input i0, input i1, input sel, output reg y);
 endmodule
 ```
 
-![Lab 4 Output](https://github.com/user-attachments/assets/4c2ede06-0605-4ff0-99cb-fc89844b89e4)
+<p align="center">
+   <img src="dmux_wave.png" alt="GTKWave Counter Output" width="100%">
+</p>
 
 ---
 
@@ -316,7 +318,9 @@ module blocking_caveat (input a, input b, input c, output reg d);
 endmodule
 ```
 
-![Lab 6 Output](https://github.com/user-attachments/assets/42cac594-0008-4c7b-b415-43e6565b6081)
+<p align="center">
+   <img src="dmux_gls.png" alt="GTKWave Counter Output" width="100%">
+</p>
 
 ---
 
