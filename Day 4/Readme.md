@@ -140,7 +140,7 @@ end
 > Non-blocking assignments (`<=`) infer sequential logic (flip-flops), critical for clocked designs like those in the RISC-V SoC.
 
 <p align="center">
-   <img src="block.jpeg" alt="GTKWave Counter Output" width="60%">
+   <img src="block.jpeg" alt="GTKWave Counter Output" width="100%">
 </p>
 
 
