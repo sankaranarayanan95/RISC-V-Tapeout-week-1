@@ -342,6 +342,13 @@ module blocking_caveat (input a, input b, input c, output reg d);
     end
 endmodule
 ```
+<p align="center">
+   <img src="bc_synth.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+<p align="center">
+   <img src="bc_wave.png" alt="GTKWave Counter Output" width="100%">
+</p>
 
 **🚨 Issue Uncovered**:
 - 🔴 **Wrong Assignment Order**: The output `d` is computed using the *old* value of `x` because `x = a | b` comes *after* `d = x & c`. This leads to stale data in simulation and synthesis.
@@ -359,11 +366,6 @@ module blocking_caveat (input a, input b, input c, output reg d);
 endmodule
 ```
 
-**📊 Fixes Applied**:
-- ✅ **Correct Assignment Order**: Moved `x = a | b` before `d = x & c`, ensuring `d` uses the updated value of `x`.
-
-**🎯 Takeaway**: In combinational logic, order your blocking assignments carefully to reflect data dependencies!
-
 ---
 
 ## 🧪 Lab 7: Synthesizing the Blocking Caveat Module 🏭
@@ -379,6 +381,17 @@ read_verilog blocking_caveat.v
 synth -top blocking_caveat
 write_verilog blocking_caveat_netlist.v
 ```
+
+<p align="center">
+   <img src="bc_gls.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+**📊 Fixes Applied**:
+- ✅ **Correct Assignment Order**: Moved `x = a | b` before `d = x & c`, ensuring `d` uses the updated value of `x`.
+
+**🎯 Takeaway**: In combinational logic, order your blocking assignments carefully to reflect data dependencies!
+
+---
 
 **✅ Expected Results**:
 - **Clean Synthesis**: No warnings or errors, as the corrected module uses proper sensitivity lists and assignment ordering.
