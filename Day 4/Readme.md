@@ -152,9 +152,7 @@ end
 | **Effective Outcome**    | `q` and `q0` act as **two separate registers** (shift register behavior).                    | `q0` and `q` follow the **same signal**; only one register is needed.                   |
 | **Synthesis Result**     | Creates **two flip-flops**: one for `q0`, one for `q`.                                       | Collapses to a **single flip-flop**: `q` directly stores `d`.                           |
 | **Analogy**             | Like a relay race: `q` passes the old baton (`q0`) before `q0` gets a new one (`d`).         | Like a direct handoff: `q0` gets `d`, and `q` instantly takes it.                       |
-| **Image Placeholder**   | ![Non-Blocking Output](https://github.com/user-attachments/assets/non_blocking_image)        | ![Blocking Output](https://github.com/user-attachments/assets/blocking_image)           |
 
----
 
 ---
 
