@@ -50,17 +50,6 @@ By the end of this week, participants gain practical experience with **RTL-to-ga
 
 <div align="center">
 
-## 🌟 Week 2 Highlights
-
-
-
-
-</div>
-
----
-
-<div align="center">
-
 **👨‍💻 Participant:** Sankararayanan V  
 📧 sanka.naren2005@gmail.com  
 
