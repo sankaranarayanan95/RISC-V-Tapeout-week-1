@@ -230,23 +230,13 @@ endmodule
 **Expected:** XOR-like: y = a ^ ~c. Fancy fold!  
 
  <p align="center">
-   <img src="multple_module_opt.png" alt="GTKWave Counter Output" width="60%">
+   <img src="multiple_module_opt.png" alt="GTKWave Counter Output" width="60%">
 </p>
 
 
 ---
 
-### Lab 5: Nested Ternary Simplification  
-```verilog
-module opt_nested (input a, b, c, output y);
-    assign y = a ? (b ? (a & c) : c) : !c;  // Simplifies to y = a ? c : !c
-endmodule
-```  
-**Expected:** XOR-like: y = a ^ ~c. Fancy fold!  
-
-![Lab 4](https://github.com/user-attachments/assets/08d1e447-78c6-47c4-8c99-239645b38617)  
-
-### Lab 6: DFF Const Load (Seq Prop Fail)  
+### Lab 5: DFF Const Load (Seq Prop Fail)  
 ```verilog
 module dff_const_load (input clk, reset, output reg q);
     always @(posedge clk, posedge reset) begin
@@ -257,9 +247,13 @@ endmodule
 ```  
 **Expected:** Full FF retained – can't optimize Q to const due to reset.  
 
-![Lab 7](https://github.com/user-attachments/assets/a42fac06-a092-4efc-be39-33b263caaaa1)  
+<p align="center">
+   <img src="dff_const1.png" alt="GTKWave Counter Output" width="60%">
+</p>
 
-### Lab 7: Full Const DFF  
+---
+
+### Lab 6: Full Const DFF  
 ```verilog
 module dff_full_const (input clk, reset, output reg q);
     always @(posedge clk, posedge reset) begin
@@ -270,42 +264,126 @@ endmodule
 ```  
 **Expected:** Optimized to tie-high; no FF needed.  
 
-![Lab ](https://github.com/user-attachments/assets/ae45f7db-0a7f-4256-b43b-01cc4a1588f7)  
+<p align="center">
+   <img src="dff_const2.png" alt="GTKWave Counter Output" width="60%">
+</p>
 
-### Lab 8: Fancy FSM State Reduction (New!)  
+---
+
+### Lab 7: Two D Flip Flops 
 ```verilog
-module fancy_fsm (input clk, rst_n, go, output reg done);
-    reg [2:0] state;  // 8 states, but optimizable to 4
-    parameter IDLE=0, LOAD=1, COMP=2, WAIT=3, DONE=4, IDLE2=5, LOAD2=6, COMP2=7;
-    
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) state <= IDLE;
-        else case (state)
-            IDLE, IDLE2: if (go) state <= LOAD;
-            LOAD, LOAD2: state <= COMP;
-            COMP, COMP2: state <= WAIT;
-            WAIT: state <= DONE;
-            DONE: state <= IDLE;
-        endcase
-        done = (state == DONE);
-    end
+module dff_const3(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b1;
+		q1 <= 1'b0;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
 endmodule
 ```  
-**Expected:** Yosys `fsm` merges IDLE/IDLE2, LOAD/LOAD2 → fewer states/FFs. Gray encode for power!  
+**Expected:** One DFF acts as SET and the other DFF acts as RESET..!
 
-### Lab 9: Retiming Pipeline (New!)  
+  <p align="center">
+   <img src="dff_const3.png" alt="GTKWave Counter Output" width="300%">
+</p>
+
+**OUTPUT WAVEFORM**
+ <p align="center">
+   <img src="dff_const3_wave.png" alt="GTKWave Counter Output" width="300%">
+</p>
+
+- The graph shows the simulation of a D Flip-Flop with reset.
+- When reset = 1, output Q is cleared to 0 (irrespective of input).
+- When reset = 0, Q updates on every rising clock edge.
+- The sudden drop of Q happens because reset overrides the clocked input.
+- Once reset is released, Q resumes normal operation, following the input.
+
+---
+
+### Lab 8: Constant output = No need of Flops  
 ```verilog
-module retime_pipe (input clk, [15:0] data_in, output reg [15:0] data_out);
-    reg [15:0] stage1;
-    wire [15:0] mul = data_in * 2;  // Long mult path
-    
-    always @(posedge clk) begin
-        stage1 <= mul;             // Retime: FF after mult
-        data_out <= stage1 + 1'b1; // Balanced
-    end
+module dff_const4(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b1;
+		q1 <= 1'b1;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
+endmodule
+```
+<p align="center">
+   <img src="dff_const4.png" alt="GTKWave Counter Output" width="300%">
+</p>
+
+<p align="center">
+   <img src="flops.png" alt="GTKWave Counter Output" width="300%">
+</p>
+
+<p align="center">
+   <img src="dff_const4_wave.png" alt="GTKWave Counter Output" width="300%">
+</p>
+
+- The graph shows the simulation of a D Flip-Flop with reset
+- When reset = 1, output Q is cleared to 0 (irrespective of input).
+- When reset = 0, Q updates on every rising clock edge.
+- The sudden drop of Q happens because reset overrides the clocked input.
+- Once reset is released, Q resumes normal operation, following the input.
+
+---
+
+
+### Lab 9: Two D Flip Flops with No optimzation
+```verilog
+
+module dff_const5(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b0;
+		q1 <= 1'b0;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
 endmodule
 ```  
-**Expected:** Timing improves; manual retiming simulates tool behavior. Add `opt` for auto-balance.  
+- Two flip-flops are used: q and q1.
+- On reset = 1, both outputs (q and q1) are cleared to 0.
+- After reset, q1 is forced to constant 1 at every clock cycle.
+- q copies the value of q1, so it becomes 1 one clock later.
+- The output stabilizes at q = 1 regardless of input conditions.
+- The extra flip-flop (q1) is redundant → synthesis tool will optimize it away.
+
+  <p align="center">
+   <img src="dff_const5.png" alt="GTKWave Counter Output" width="300%">
+</p>
 
 ---
 
