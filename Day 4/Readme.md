@@ -83,31 +83,102 @@ A **synthesis-simulation mismatch** occurs when RTL simulation (pre-synthesis) d
 
 ---
 
-## 3. Blocking vs. Non-Blocking Assignments 🔄
+# 🚀 Blocking vs. Non-Blocking Assignments in Verilog 🔄
 
-Verilog uses two procedural assignment types: **Blocking** and **Non-Blocking**.
+In Verilog, not all assignments are created equal! There are **two flavors** of procedural assignments, and choosing the right one can save you from subtle hardware bugs. Let’s dive into **Blocking** and **Non-Blocking Assignments** to master their use in VLSI design! 🎉
 
-### 3.1 Blocking Statements (`=`) 📝
-- **Syntax**: `=`
-- **Execution**: Immediate, sequential.
-- **Use Case**: Combinational logic (e.g., `always @(*)`).
-- **Example**:
-  ```verilog
-  always @(*) begin
-      y = a & b;
-  end
-  ```
+---
 
-### 3.2 Non-Blocking Statements (`<=`) ⏳
-- **Syntax**: `<=`
-- **Execution**: Concurrent, scheduled at end of time step.
-- **Use Case**: Sequential logic (e.g., `always @(posedge clk)`).
-- **Example**:
-  ```verilog
-  always @(posedge clk) begin
-      q <= d;
-  end
-  ```
+## 📑 Table of Contents
+
+| **Section** | **Description** |
+|-------------|-----------------|
+| [1. Blocking Assignments (`=`)] | Understand blocking assignments for combinational logic. |
+| [2. Non-Blocking Assignments (`<=`)] | Explore non-blocking assignments for sequential logic. |
+| [3. Comparison Table] | Compare blocking vs. non-blocking assignments. |
+
+---
+
+## 1. Blocking Assignments (`=`) 📝
+
+Think of **blocking assignments** as **strict line-followers**. Each statement **finishes completely** before the next one begins, like following a recipe step-by-step—chop the onions, *then* fry them!
+
+- **When to Use**: Combinational logic (e.g., `always @(*)`).
+- **Behavior**: Updates are **immediate**, so later lines see the updated values right away.
+- **Analogy**: Cooking sequentially—you can’t fry onions before chopping them!
+
+**Example**:
+```verilog
+always @(*) begin
+    y = a & b;   // AND first, y updated immediately
+    z = y | c;   // Uses updated y value
+end
+```
+
+> [!NOTE]  
+> Blocking assignments (`=`) infer combinational logic (gates) and are ideal for logic that doesn’t depend on a clock.
+
+---
+
+## 2. Non-Blocking Assignments (`<=`) ⏳
+
+**Non-blocking assignments** are patient and fair. They **read all right-hand side (RHS) values first**, then update all left-hand side (LHS) values **together at the end** of the time step, preventing order-dependent issues.
+
+- **When to Use**: Sequential logic (e.g., `always @(posedge clk)`).
+- **Behavior**: Updates are **scheduled**, ensuring all assignments occur concurrently.
+- **Analogy**: A team working in parallel—everyone gathers their materials, then updates together.
+
+**Example**:
+```verilog
+always @(posedge clk) begin
+    q0 <= d;     // Schedule update for q0
+    q  <= q0;    // Reads old q0, schedules update for q
+end
+```
+
+> [!NOTE]  
+> Non-blocking assignments (`<=`) infer sequential logic (flip-flops), critical for clocked designs like those in the RISC-V SoC.
+
+<p align="center">
+   <img src="block.png" alt="GTKWave Counter Output" width="60%">
+</p>
+
+
+| **Aspect**               |                    **Left Side Image**                                                                 |             **Right Side Image**                                                                |
+|--------------------------|---------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| **Code Example**         | ```verilog<br>always @(posedge clk) begin<br>    q <= q0; // (1)<br>    q0 <= d; // (2)<br>end``` | ```verilog<br>always @(posedge clk) begin<br>    q0 = d; // (1)<br>    q = q0; // (2)<br>end``` |
+| **Line (1) Behavior**    | `q` gets the **old value** of `q0` (previous clock cycle).                                   | `q0` is **immediately updated** to `d`.                                                 |
+| **Line (2) Behavior**    | `q0` is updated with `d` (scheduled for end of time step).                                   | `q` gets the **new value** of `q0` (which is `d`).                                      |
+| **Effective Outcome**    | `q` and `q0` act as **two separate registers** (shift register behavior).                    | `q0` and `q` follow the **same signal**; only one register is needed.                   |
+| **Synthesis Result**     | Creates **two flip-flops**: one for `q0`, one for `q`.                                       | Collapses to a **single flip-flop**: `q` directly stores `d`.                           |
+| **Analogy**             | Like a relay race: `q` passes the old baton (`q0`) before `q0` gets a new one (`d`).         | Like a direct handoff: `q0` gets `d`, and `q` instantly takes it.                       |
+| **Image Placeholder**   | ![Non-Blocking Output](https://github.com/user-attachments/assets/non_blocking_image)        | ![Blocking Output](https://github.com/user-attachments/assets/blocking_image)           |
+
+---
+
+---
+
+## 3. Comparison Table
+
+| **Feature**                | **Blocking (`=`)**                       | **Non-Blocking (`<=`)**                  |
+|----------------------------|------------------------------------------|------------------------------------------|
+| **Operator**               | `=`                                      | `<=`                                     |
+| **Execution**              | Sequential, immediate                    | Concurrent, end of time step             |
+| **Update Timing**          | Instant, in code order                  | Scheduled, after time step               |
+| **Typical Use**            | Combinational logic, temp variables      | Sequential logic, registers/flip-flops   |
+| **Inferred Hardware**      | Gates (combinational)                    | Flip-flops (sequential)                  |
+| **Analogy**                | Cooking step-by-step                    | Team updating in parallel                |
+
+> [!WARNING]  
+> Mixing blocking and non-blocking assignments in the same block can cause synthesis-simulation mismatches, especially in sequential logic. Stick to `=` for combinational and `<=` for sequential!
+
+---
+
+
+## 🚀 Ready to Apply?
+- 💻 Simulate these examples using iverilog/GTKWave to see blocking vs. non-blocking behavior.
+- 🔧 Apply these rules in your RISC-V SoC RTL design to prevent synthesis-simulation mismatches.
+- 🌟 Experiment with Synopsys tools (Design Compiler, PrimeTime) for synthesis and GLS.
 
 ### 3.3 Comparison Table
 | **Feature**                | **Blocking (`=`)**                       | **Non-Blocking (`<=`)**                  |
