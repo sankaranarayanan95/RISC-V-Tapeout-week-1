@@ -142,6 +142,8 @@ endmodule
    <img src="icase_wave.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
+---
+
 ### Lab 6: Synth Result of Lab 5  
 📸 **Clean Synthesis Win**:  
 <p align="center">
@@ -165,13 +167,13 @@ endmodule
 ### Synth Result of Lab 5  
 📸 **Clean Synthesis Win**:  
 <p align="center">
-   <img src=" .png" alt="GTKWave Counter Output" width="100%">
+   <img src="ccase_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 
 📸 **Output Snapshot**:  
 <p align="center">
-   <img src=" .png" alt="GTKWave Counter Output" width="100%">
+   <img src="ccase_wave.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 ---
@@ -199,18 +201,85 @@ end
 endmodule
 ```
 
-📸 **Output Snapshot**:  
+### Synth Result of Lab 5  
+📸 **Clean Synthesis Win**:  
 <p align="center">
-   <img src=" .png" alt="GTKWave Counter Output" width="100%">
+   <img src="pc_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
+
+# Synthesis Summary
+
+## Synthesized Netlist (Schematic)
+
+### MUX2 (sky130_fd_sc_hd__mux2_1)
+- Selects between `i0` and `i1` based on `sel[0]` when `sel[1] = 0`.
+- Matches the cases:
+  - `sel = 00`: `y = i0`
+  - `sel = 01`: `y = i1`
+
+### AOI / AND-OR Gates (`a221o`, `and3b`, `nor2`, `nand2b`)
+- Handle the default case (`sel = 10` or `11`).
+- Generate:
+  - `y = i2`
+  - `x = i1`
+
+### DLATCH (`$_DLATCH_P_`)
+- Inserted by synthesis because `x` is not assigned in every branch (missing in `sel = 01`).
+- Infers a latch to "remember" the last value of `x` when `sel = 01`.
+
+## Boolean Simplification
+
+### For `y`:
+```
+y = (~sel[1] & ~sel[0] & i0)  // sel=00 → y=i0
+  | (~sel[1] &  sel[0] & i1)  // sel=01 → y=i1
+  | ( sel[1]           & i2); // sel=1x → y=i2
+```
+
+### For `x`:
+```
+if (sel == 00) x = i2;
+else if (sel == 10 or 11) x = i1;
+else x = latch (holds value);
+```
+
+## Conclusion
+- The synthesized logic matches the RTL case statement.
+- The `DLATCH` is inferred because `x` is not assigned in `sel = 01`, requiring storage to hold the previous value.
+
+---
+
+### Lab 10: Partial Assignments in Case  
+```verilog
+module bad_case (input i0 , input i1, input i2, input i3 , input [1:0] sel, output reg y);
+always @(*)
+begin
+	case(sel)
+		2'b00: y = i0;
+		2'b01: y = i1;
+		2'b10: y = i2;
+		2'b1?: y = i3;
+		//2'b11: y = i3;
+	endcase
+end
+
+endmodule
+```
 
 ### Synth Result of Lab 5  
 📸 **Clean Synthesis Win**:  
 <p align="center">
-   <img src=" .png" alt="GTKWave Counter Output" width="100%">
+   <img src="bcase_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
+📸 **Output Snapshot**:  
+<p align="center">
+   <img src="bcase_wave.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+
 ---
+
 
 ## 4️⃣ For Loops: Loop Your Way to Scalable Logic 🔄  
 
