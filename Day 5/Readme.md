@@ -89,31 +89,39 @@ endmodule
 ```
 
 📸 **Output Snapshot**:  
-![in_comp_if](https://github.com/user-attachments/assets/91d1cc1d-bb3a-4ea8-a272-363414777868)
+<p align="center">
+   <img src="iif_wave.png" alt="GTKWave Counter Output" width="60%">
+</p>
+
+---
 
 ### Lab 2: Synth Result of Lab 1  
 📸 **Synthesis Shenanigans**:  
-![incomp_synth](https://github.com/user-attachments/assets/691045e7-39e0-4e6c-98bd-511b501fbe35)  
+<p align="center">
+   <img src="iif_synth.png" alt="GTKWave Counter Output" width="60%">
+</p>
 (Spot the latch? It's hiding in plain sight!)
 
-### Lab 3: Nested If-Else  
-```verilog
-module incomp_if2 (input i0, input i1, input i2, input i3, output reg y);
-always @(*) begin
-    if (i0)
-        y <= i1;
-    else if (i2)
-        y <= i3;   // ❌ Nested but still naked – no full coverage!  
-end
-endmodule
-```
+---
 
-📸 **Output Snapshot**:  
-![icomp2](https://github.com/user-attachments/assets/2f614956-e4af-4d29-80ae-13a167e7831d)
+📸 **Lab 3 : GLS of Incomp_if**: 
+
+<p align="center">
+   <img src="iif_gls.png" alt="GTKWave Counter Output" width="60%">
+</p>
+
+
+---
+
 
 ### Lab 4: Synth Result of Lab 3  
 📸 **More Synthesis Drama**:  
-![incomp2synth](https://github.com/user-attachments/assets/880ff7bb-23fb-4362-bf8f-a2494a854b53)
+
+<p align="center">
+   <img src="iif2_synth.png" alt="GTKWave Counter Output" width="60%">
+</p>
+
+---
 
 ### Lab 5: Complete Case Statement  
 ```verilog
