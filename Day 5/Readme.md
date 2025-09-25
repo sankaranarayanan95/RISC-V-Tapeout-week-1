@@ -151,7 +151,7 @@ endmodule
 </p>
 
 
-## Lab 6: Complete Case Statement  
+## Lab 7: Complete Case Statement  
 ```verilog
 module comp_case (input i0, input i1, input i2, input [1:0] sel, output reg y);
 always @(*) begin
@@ -163,9 +163,17 @@ always @(*) begin
 end
 endmodule
 ```
+### Synth Result of Lab 5  
+📸 **Clean Synthesis Win**:  
+<p align="center">
+   <img src=" .png" alt="GTKWave Counter Output" width="100%">
+</p>
+
 
 📸 **Output Snapshot**:  
-![compcase](https://github.com/user-attachments/assets/cfe97c45-a487-4f06-b4a2-74b3a61bee14)
+<p align="center">
+   <img src=" .png" alt="GTKWave Counter Output" width="100%">
+</p>
 
 ---
 
@@ -193,9 +201,15 @@ endmodule
 ```
 
 📸 **Output Snapshot**:  
-![partial_case](https://github.com/user-attachments/assets/3f6068f3-726d-4192-b3cd-f88b3611e752)
+<p align="center">
+   <img src=" .png" alt="GTKWave Counter Output" width="100%">
+</p>
 
-**Lab Challenge**: Fix Lab 7 with a `default` case – share your optimized code in the repo comments!
+### Synth Result of Lab 5  
+📸 **Clean Synthesis Win**:  
+<p align="center">
+   <img src=" .png" alt="GTKWave Counter Output" width="100%">
+</p>
 
 ---
 
