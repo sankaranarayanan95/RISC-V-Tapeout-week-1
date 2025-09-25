@@ -110,9 +110,7 @@ endmodule
    <img src="iif_gls.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
-
 ---
-
 
 ### Lab 4: Synth Result of Lab 3  
 📸 **More Synthesis Drama**:  
@@ -123,27 +121,8 @@ endmodule
 
 ---
 
-### Lab 5: Complete Case Statement  
-```verilog
-module comp_case (input i0, input i1, input i2, input [1:0] sel, output reg y);
-always @(*) begin
-    case(sel)
-        2'b00: y = i0;
-        2'b01: y = i1;
-        default: y = i2;  // ✅ Default to the rescue – no latches here!  
-    endcase
-end
-endmodule
-```
 
-📸 **Output Snapshot**:  
-![compcase](https://github.com/user-attachments/assets/cfe97c45-a487-4f06-b4a2-74b3a61bee14)
-
-### Lab 6: Synth Result of Lab 5  
-📸 **Clean Synthesis Win**:  
-![compcase_synth](https://github.com/user-attachments/assets/8c871511-6e55-4e80-be11-86e9efd87cad)
-
-### Lab 7: Incomplete Case (Danger Zone!)  
+### Lab 5: Incomplete Case (Danger Zone!)  
 ```verilog
 module bad_case (
     input i0, input i1, input i2, input i3,
@@ -161,7 +140,34 @@ endmodule
 ```
 
 📸 **Output Snapshot**:  
-![badcase](https://github.com/user-attachments/assets/4ccf37aa-5502-4750-bedb-9b2ec0748a53)
+<p align="center">
+   <img src="icase_wave.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+### Lab 6: Synth Result of Lab 5  
+📸 **Clean Synthesis Win**:  
+<p align="center">
+   <img src="icase_synth.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+
+## Lab 6: Complete Case Statement  
+```verilog
+module comp_case (input i0, input i1, input i2, input [1:0] sel, output reg y);
+always @(*) begin
+    case(sel)
+        2'b00: y = i0;
+        2'b01: y = i1;
+        default: y = i2;  // ✅ Default to the rescue – no latches here!  
+    endcase
+end
+endmodule
+```
+
+📸 **Output Snapshot**:  
+![compcase](https://github.com/user-attachments/assets/cfe97c45-a487-4f06-b4a2-74b3a61bee14)
+
+---
 
 ### Lab 8: Partial Assignments in Case  
 ```verilog
