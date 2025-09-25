@@ -148,6 +148,7 @@ endmodule
    <img src="icase_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
+---
 
 ## Lab 7: Complete Case Statement  
 ```verilog
