@@ -90,7 +90,7 @@ endmodule
 
 📸 **Output Snapshot**:  
 <p align="center">
-   <img src="iif_wave.png" alt="GTKWave Counter Output" width="60%">
+   <img src="iif_wave.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 ---
@@ -98,7 +98,7 @@ endmodule
 ### Lab 2: Synth Result of Lab 1  
 📸 **Synthesis Shenanigans**:  
 <p align="center">
-   <img src="iif_synth.png" alt="GTKWave Counter Output" width="60%">
+   <img src="iif_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 (Spot the latch? It's hiding in plain sight!)
 
@@ -107,7 +107,7 @@ endmodule
 📸 **Lab 3 : GLS of Incomp_if**: 
 
 <p align="center">
-   <img src="iif_gls.png" alt="GTKWave Counter Output" width="60%">
+   <img src="iif_gls.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 
@@ -118,7 +118,7 @@ endmodule
 📸 **More Synthesis Drama**:  
 
 <p align="center">
-   <img src="iif2_synth.png" alt="GTKWave Counter Output" width="60%">
+   <img src="iif2_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 ---
