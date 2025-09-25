@@ -2,10 +2,8 @@
 
 <div align="center">
 
-![Verilog](https://img.shields.io/badge/Language-Verilog-blue?style=for-the-badge&logo=verilog)  
-![Synthesis](https://img.shields.io/badge/Focus-Optimization-success?style=for-the-badge&logo=gnometerminal)  
-![Workshop](https://img.shields.io/badge/RTL-Workshop-orange?style=for-the-badge&logo=hackaday)  
-![EDA](https://img.shields.io/badge/Open--Source-EDA-lightgrey?style=for-the-badge&logo=opensourceinitiative)  
+![Verilog](https://img.shields.io/badge/Language-Verilog-blue?style=for-the-badge&logo=verilog)   ![Synthesis](https://img.shields.io/badge/Focus-Optimization-success?style=for-the-badge&logo=gnometerminal)  ![Workshop](https://img.shields.io/badge/RTL-Workshop-orange?style=for-the-badge&logo=hackaday)  ![EDA](https://img.shields.io/badge/Open--Source-EDA-lightgrey?style=for-the-badge&logo=opensourceinitiative)  
+
 
 🌟 **Welcome, RTL Wizards!** 🌟  
 Buckle up for **Day 5** of our electrifying RTL Design & Synthesis Workshop. We're cranking up the creativity dial to explore **Verilog synthesis optimizations** – from dodging sneaky latches to wielding `if-else`, `case`, `for` loops, and `generate` blocks like a pro. Get ready for fun labs, pro tips, and hardware hacks that make your designs sleek, efficient, and latch-free! 🚀  
