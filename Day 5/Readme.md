@@ -387,7 +387,7 @@ endgenerate
 
 ---
 
-### DEMUX CASE and GENERATE coding styles
+###6️⃣ DEMUX CASE and GENERATE coding styles
 
 **Example: DEMUX with Case**  
 ```verilog
@@ -409,12 +409,12 @@ endmodule
 
 📸 **Output Snapshot**:  
 <p align="center">
-   <img src="mg4_wave.png" alt="GTKWave Counter Output" width="100%">
+   <img src="dc_wave.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 📸 **Clean Synthesis Win**:  
 <p align="center">
-   <img src="bcase_synth.png" alt="GTKWave Counter Output" width="100%">
+   <img src="dc_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 
@@ -439,12 +439,12 @@ endmodule
 
 📸 **Output Snapshot**:  
 <p align="center">
-   <img src="mg4_wave.png" alt="GTKWave Counter Output" width="100%">
+   <img src="dg_wave.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 📸 **Clean Synthesis Win**:  
 <p align="center">
-   <img src="bcase_synth.png" alt="GTKWave Counter Output" width="100%">
+   <img src="dg_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 
@@ -463,7 +463,7 @@ endmodule
 
 ---
 
-## 6️⃣ Ripple Carry Adder (RCA): The Chain-Reaction Hero 🌊  
+## 7️⃣ Ripple Carry Adder (RCA): The Chain-Reaction Hero 🌊  
 
 The **Ripple Carry Adder (RCA)** is the classic adder squad: A chain of full adders where carries "ripple" through like dominoes. Simple for small bits, but watch that delay wave in big designs!  
 
@@ -474,7 +474,7 @@ The **Ripple Carry Adder (RCA)** is the classic adder squad: A chain of full add
 
 ---
 
-## 7️⃣ Labs: Loops, Generates, & Adder Adventures 🎮  
+##  Labs: Loops, Generates, & Adder Adventures 🎮  
 
 Level up with these labs – loop, generate, and add your way to victory! (Setup in Day 1.)  
 
