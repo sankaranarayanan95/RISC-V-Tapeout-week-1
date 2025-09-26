@@ -387,7 +387,81 @@ endgenerate
 
 ---
 
+### DEMUX CASE and GENERATE coding styles
 
+**Example: DEMUX with Case**  
+```verilog
+module mux_4to1_for_loop (
+    input wire [3:0] data, // Party of 4 inputs
+    input wire [1:0] sel,  // DJ select
+    output reg y           // The chosen one
+);
+    integer i;
+    always @(data, sel) begin
+        y = 1'b0; // Start neutral
+        for (i = 0; i < 4; i = i + 1) begin
+            if (i == sel)
+                y = data[i]; // Match? You're it!
+        end
+    end
+endmodule
+```
+
+📸 **Output Snapshot**:  
+<p align="center">
+   <img src="mg4_wave.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+📸 **Clean Synthesis Win**:  
+<p align="center">
+   <img src="bcase_synth.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+
+
+**Example: DEMUX with For Loop**  
+```verilog
+module mux_4to1_for_loop (
+    input wire [3:0] data, // Party of 4 inputs
+    input wire [1:0] sel,  // DJ select
+    output reg y           // The chosen one
+);
+    integer i;
+    always @(data, sel) begin
+        y = 1'b0; // Start neutral
+        for (i = 0; i < 4; i = i + 1) begin
+            if (i == sel)
+                y = data[i]; // Match? You're it!
+        end
+    end
+endmodule
+```
+
+📸 **Output Snapshot**:  
+<p align="center">
+   <img src="mg4_wave.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+📸 **Clean Synthesis Win**:  
+<p align="center">
+   <img src="bcase_synth.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+
+## Comparison Table
+
+| Feature                  | Case Statement                                   | For Loop                                      |
+|--------------------------|--------------------------------------------------|-----------------------------------------------|
+| **Coding Style**         | Uses a `case` or `casez` statement in an `always` block to assign outputs based on select signal values. | Uses a `for` loop in an `always` block to iterate over outputs and assign the input to the selected one. |
+| **Readability**          | Explicit and clear for small demuxes (e.g., 1:2 or 1:4). Each case is manually defined, making it easy to follow. | More concise for larger demuxes (e.g., 1:8 or 1:16). Less verbose but may be less intuitive for beginners. |
+| **Scalability**          | Tedious for large demuxes, as each case must be written out manually, increasing code length. | Scales well for large demuxes, as the loop automatically handles all outputs with minimal code. |
+| **Synthesis**            | Synthesizes to combinational logic (e.g., muxes or AND/OR gates). May infer latches if outputs are not fully specified. | Synthesizes to combinational logic. Ensures all outputs are assigned in each iteration, reducing risk of latches. |
+| **Code Example**         | ```verilog<br>always @(sel or in) begin<br>  out = 0;<br>  case (sel)<br>    2'b00: out[0] = in;<br>    2'b01: out[1] = in;<br>    2'b10: out[2] = in;<br>    2'b11: out[3] = in;<br>  endcase<br>end<br>``` | ```verilog<br>always @(sel or in) begin<br>  out = 0;<br>  for (int i = 0; i < 4; i++) begin<br>    if (i == sel) out[i] = in;<br>  end<br>end<br>``` |
+| **Use Case**             | Best for small demuxes or when specific control over each case is needed (e.g., custom output conditions). | Ideal for large demuxes or when the output pattern is regular, reducing repetitive code. |
+| **Flexibility**          | Highly flexible for non-standard output assignments or additional logic per case. | Less flexible for irregular patterns but cleaner for standard demux behavior. |
+| **Potential Pitfalls**   | Risk of inferred latches if not all cases are covered or outputs aren’t initialized (e.g., missing `default`). | Must ensure proper initialization (e.g., `out = 0`) to avoid latches; loop logic must be precise. |
+
+---
 
 ## 6️⃣ Ripple Carry Adder (RCA): The Chain-Reaction Hero 🌊  
 
