@@ -468,7 +468,9 @@ endmodule
 The **Ripple Carry Adder (RCA)** is the classic adder squad: A chain of full adders where carries "ripple" through like dominoes. Simple for small bits, but watch that delay wave in big designs!  
 
 📸 **Visual Vibes**:  
-![image](https://github.com/user-attachments/assets/f1ec27d4-b770-4d7a-a418-6435fc81f538)
+<p align="center">
+   <img src="rca.jpeg" alt="GTKWave Counter Output" width="100%">
+</p>
 
 **Why It Rocks**: Easy to implement, but for speed freaks, level up to carry-lookahead! ⚡  
 
@@ -508,7 +510,9 @@ endmodule
 ```
 
 📸 **Adder Assembly Line**:  
-![rca_org](https://github.com/user-attachments/assets/1d8876f9-e303-4a73-945e-97756a37bb73)
+<p align="center">
+   <img src="dg_synth.png" alt="GTKWave Counter Output" width="100%">
+</p>
 
 📸 **Clean Synthesis Win**:  
 <p align="center">
