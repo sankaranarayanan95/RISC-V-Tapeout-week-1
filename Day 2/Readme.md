@@ -2,11 +2,7 @@
 
 <div align="center">
 
-![RTL](https://img.shields.io/badge/Verilog-RTL-blue?style=for-the-badge&logo=verilog)  
-![Synthesis](https://img.shields.io/badge/Yosys-Synthesis-green?style=for-the-badge&logo=opensourceinitiative)  
-![Simulation](https://img.shields.io/badge/Simulation-Icarus%20Verilog-orange?style=for-the-badge)  
-![Waveforms](https://img.shields.io/badge/GTKWave-Visualization-lightgrey?style=for-the-badge)  
-
+![RTL](https://img.shields.io/badge/Verilog-RTL-blue?style=for-the-badge&logo=verilog)  ![Synthesis](https://img.shields.io/badge/Yosys-Synthesis-green?style=for-the-badge&logo=opensourceinitiative)  ![Simulation](https://img.shields.io/badge/Simulation-Icarus%20Verilog-orange?style=for-the-badge)  ![Waveforms](https://img.shields.io/badge/GTKWave-Visualization-lightgrey?style=for-the-badge)  
 
 </div>
 
