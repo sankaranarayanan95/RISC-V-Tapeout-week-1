@@ -78,7 +78,7 @@ By the end of this week, participants gain practical experience with **RTL-to-ga
 ## 🌟 Standout Features
 
 - **📊 Visual Learning**: Check out the agenda image below for a sneak peek!
-  ![Agenda Snapshot](attachment://agenda_snapshot.png)
+  
 - **✅ Checklist**: 
   - [ ] Complete Day 1 Basics
   - [ ] Master Day 2 Timing & Flop Styles
