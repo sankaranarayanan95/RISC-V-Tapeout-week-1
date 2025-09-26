@@ -295,7 +295,7 @@ end
 ✔️ **Epic Use Cases**: Muxes, demuxes, array ops – perfect for scaling without copy-paste madness.  
 **Twist**: Imagine it as a conveyor belt churning out logic – efficient and endless fun! 🛤️  
 
-### Example: 2-to-1 MUX with For Loop  
+### Lab 11 : Example: 2-to-1 MUX with For Loop  
 ```verilog
 module mux_generate (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
 wire [3:0] i_int;
@@ -320,7 +320,7 @@ endmodule
 
 ---
 
-### Example: 4-to-1 MUX with For Loop  
+### Lab 12 : Example: 4-to-1 MUX with For Loop  
 ```verilog
 module mux_4to1_for_loop (
     input wire [3:0] data, // Party of 4 inputs
@@ -389,7 +389,7 @@ endgenerate
 
 ###6️⃣ DEMUX CASE and GENERATE coding styles
 
-**Example: DEMUX with Case**  
+** Lab 13 : Example: DEMUX with Case**  
 ```verilog
 module mux_4to1_for_loop (
     input wire [3:0] data, // Party of 4 inputs
@@ -419,7 +419,7 @@ endmodule
 
 
 
-**Example: DEMUX with For Loop**  
+** Lab 14 : Example: DEMUX with For Loop**  
 ```verilog
 module mux_4to1_for_loop (
     input wire [3:0] data, // Party of 4 inputs
@@ -478,82 +478,8 @@ The **Ripple Carry Adder (RCA)** is the classic adder squad: A chain of full add
 
 Level up with these labs – loop, generate, and add your way to victory! (Setup in Day 1.)  
 
-### Lab 9: 4-to-1 MUX using For Loop  
-```verilog
-module mux_generate (
-    input i0, input i1, input i2, input i3,
-    input [1:0] sel,
-    output reg y
-);
-wire [3:0] i_int;
-assign i_int = {i3, i2, i1, i0};
-integer k;
-always @(*) begin
-    for (k = 0; k < 4; k = k + 1) begin
-        if (k == sel)
-            y = i_int[k];
-    end
-end
-endmodule
-```
 
-📸 **Loop Magic in Action**:  
-![mux_generate](https://github.com/user-attachments/assets/80789638-c349-44a9-92f4-7597d5925c63)
-
-### Lab 10: 8-to-1 Demux using Case  
-```verilog
-module demux_case (
-    output o0, output o1, output o2, output o3,
-    output o4, output o5, output o6, output o7,
-    input [2:0] sel,
-    input i
-);
-reg [7:0] y_int;
-assign {o7, o6, o5, o4, o3, o2, o1, o0} = y_int;
-always @(*) begin
-    y_int = 8'b0;
-    case(sel)
-        3'b000 : y_int[0] = i;
-        3'b001 : y_int[1] = i;
-        3'b010 : y_int[2] = i;
-        3'b011 : y_int[3] = i;
-        3'b100 : y_int[4] = i;
-        3'b101 : y_int[5] = i;
-        3'b110 : y_int[6] = i;
-        3'b111 : y_int[7] = i;
-    endcase
-end
-endmodule
-```
-
-📸 **Case Conquest**:  
-![demux-case](https://github.com/user-attachments/assets/1836a255-e260-47de-9a8e-45899b19fc03)
-
-### Lab 11: 8-to-1 Demux using For Loop  
-```verilog
-module demux_generate (
-    output o0, output o1, output o2, output o3,
-    output o4, output o5, output o6, output o7,
-    input [2:0] sel,
-    input i
-);
-reg [7:0] y_int;
-assign {o7, o6, o5, o4, o3, o2, o1, o0} = y_int;
-integer k;
-always @(*) begin
-    y_int = 8'b0;
-    for (k = 0; k < 8; k = k + 1) begin
-        if (k == sel)
-            y_int[k] = i;
-    end
-end
-endmodule
-```
-
-📸 **Loopy Demux Delight**:  
-![demux-generate](https://github.com/user-attachments/assets/a5a2c004-a16f-44cd-8d80-c23f1c932e6c)
-
-### Lab 12: 8-bit Ripple Carry Adder using Generate  
+### Lab 15: 8-bit Ripple Carry Adder using Generate  
 ```verilog
 module rca (
     input [7:0] num1,
@@ -584,6 +510,12 @@ endmodule
 📸 **Adder Assembly Line**:  
 ![rca_org](https://github.com/user-attachments/assets/1d8876f9-e303-4a73-945e-97756a37bb73)
 
+📸 **Clean Synthesis Win**:  
+<p align="center">
+   <img src="dg_synth.png" alt="GTKWave Counter Output" width="100%">
+</p>
+
+
 **Bonus Quest**: Scale Lab 12 to 16 bits – how does the delay change? Experiment and share your results!
 
 ---
@@ -603,4 +535,4 @@ endmodule
 Clean Verilog = Latch-free bliss, optimal gates, and hardware that hums! 🎶  
 🔗 **Design Smart. Synthesize Safe. Optimize Always.**  
 
-Ready for **Day 6**? Keep the RTL fire burning! 🔥
+Ready for **Week 2**? Keep the RTL fire burning! 🔥
