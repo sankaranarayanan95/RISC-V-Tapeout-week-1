@@ -4,7 +4,7 @@
 
 ![RISC-V](https://img.shields.io/badge/RISC--V-RTL%20Synthesis-blue?style=for-the-badge&logo=riscv)
 ![EDA](https://img.shields.io/badge/EDA-OpenSource-orange?style=for-the-badge&logo=opensourceinitiative)
-![Week 2](https://img.shields.io/badge/Week-2-green?style=for-the-badge)
+![Week 2](https://img.shields.io/badge/Week-1-green?style=for-the-badge)
 ![Learning](https://img.shields.io/badge/Learning-Hands%20On-success?style=for-the-badge)
 
 </div>
