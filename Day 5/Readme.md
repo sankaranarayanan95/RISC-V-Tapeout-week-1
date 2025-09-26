@@ -469,7 +469,7 @@ The **Ripple Carry Adder (RCA)** is the classic adder squad: A chain of full add
 
 📸 **Visual Vibes**:  
 <p align="center">
-   <img src="rca.jpeg" alt="GTKWave Counter Output" width="100%">
+   <img src="rca.jpg" alt="GTKWave Counter Output" width="100%">
 </p>
 
 **Why It Rocks**: Easy to implement, but for speed freaks, level up to carry-lookahead! ⚡  
@@ -509,14 +509,26 @@ module fa (input a, input b, input c, output co, output sum);
 endmodule
 ```
 
+```iverilog
+iverilog fa.v rca.v tb_rca.v
+./a.out
+gtkwave tb_rca.v
+```
 📸 **Adder Assembly Line**:  
 <p align="center">
-   <img src="dg_synth.png" alt="GTKWave Counter Output" width="100%">
+   <img src="rca_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
+
+```yosys
+read_verilog fa.v rca.v 
+synth -top rca
+abc -liberty  ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show rca
+```
 📸 **Clean Synthesis Win**:  
 <p align="center">
-   <img src="dg_synth.png" alt="GTKWave Counter Output" width="100%">
+   <img src="rca_synth.png" alt="GTKWave Counter Output" width="100%">
 </p>
 
 
